@@ -2,7 +2,7 @@ td {
     font-family: "Great Vibes", cursive;
     font-weight: 400;
     font-style: normal;
-    font-size: 18px; 
+    font-size: 22px; 
     color: #020202;    
   }
 
@@ -10,7 +10,20 @@ h2 {
     font-family: "Great Vibes", cursive;
     font-weight: 400;
     font-style: normal;
-    font-size: 34px; 
+    font-size: 36px; 
     color: #c79534;
     text-align: center;
+  }
+  .share-tech-mono-regular {
+    font-family: "Share Tech Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .text-muted{
+    font-family: "Share Tech Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
+    font-size: small;
+    text-shadow: 1px 1px 1px #fff;
+    text-transform: uppercase;
   }

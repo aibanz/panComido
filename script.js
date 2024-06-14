@@ -23,8 +23,8 @@ function mostrarDatos(data) {
   //footer
   var footer = document.getElementById("footer");
   spanF = document.createElement("span");
-  spanF.className = "text-muted";
-  spanF.textContent = "Pan Comido";
+  spanF.className = "text-muted share-tech-mono-regular";
+  spanF.textContent = "Menú creado por Pan Comido";
   footer.appendChild(spanF);
   //fin footer
 
@@ -44,8 +44,7 @@ function mostrarDatos(data) {
     var a = document.createElement("a");
     a.href = "#" + sheet.hoja;
     a.textContent = sheet.hoja;
-    a.className =
-      'nav-link data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show"';
+    a.className = 'nav-link data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" text-muted';
     var liNav = document.getElementById("navlist");
     liNav.appendChild(li);
     li.appendChild(a);
@@ -139,6 +138,10 @@ headers.forEach((header) => {
               }
               break;
 
+              case "Precio":
+
+              cell.innerHTML = "$" + cell.innerHTML
+                              
             default:
               row.appendChild(cell);
               break;
