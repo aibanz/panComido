@@ -69,19 +69,20 @@ function mostrarDatos(data) {
     }
 
     // Crear celdas de encabezado (excepto "Imagen")
-    headers.forEach((header) => {
-      var th = document.createElement("th");
-      if (header === "Imagen") {        
-        th.setAttribute("scope", "col");
-        th.textContent = header;
-        th.className = "col-1";
-        th.textContent = "";
-
-      }else {
-          th.className = "col-5";
-        }      
-      headerRow.appendChild(th);
-    });
+headers.forEach((header) => {
+    if (header !== "") {
+        var th = document.createElement("th");
+        if (header === "Imagen") {
+            th.setAttribute("scope", "col");
+            th.textContent = header;
+            th.className = "col-1";
+            th.textContent = "";
+        } else {
+            th.className = "col-5";
+        }
+        headerRow.appendChild(th);
+    }
+});
 
     table.appendChild(headerRow);
 
@@ -89,7 +90,7 @@ function mostrarDatos(data) {
     function addImageToRow(row, src, rowData) {
       var img = document.createElement("img");
       img.src = src;
-      img.alt = rowData["Nombre"]; // Puedes establecer un atributo alt con el nombre del producto
+      //img.alt = rowData["Nombre"]; // Puedes establecer un atributo alt con el nombre del producto
       img.style.maxWidth = "40px"; // Establece un ancho máximo opcional
       //img.className ="rounded align-middle"
       row.appendChild(img);
@@ -110,7 +111,7 @@ function mostrarDatos(data) {
         cellImagen.appendChild(img);
         cellImagen.className = "align-middle";
         row.appendChild(cellImagen);
-      } else {
+      } else if (!headers.includes("")){
         var cubo = document.createElement("div");
         cubo.style.width = "80px";
         row.appendChild(cubo);
@@ -121,18 +122,20 @@ function mostrarDatos(data) {
         if (header !== "Imagen") {
           var cell = document.createElement("td");
           cell.textContent = rowData[header];
-          cell.className = "align-middle";
+          cell.className = "align-middle ";
+          header==="Nombre"?cell.className = "font-weight-bold":""
+          
 
           switch (header) {
             case "Vegano":
               if (rowData["Vegano"] === "SI") {
-                addImageToRow(row, "./img/VEGAN.jpg", rowData);
+                addImageToRow(row, "./img/VEGAN.png", rowData);
               }
               break;
 
             case "SinTacc":
               if (rowData["SinTacc"] === "SI") {
-                addImageToRow(row, "./img/SINTACC.jpg", rowData);
+                addImageToRow(row, "./img/SINTACC.png", rowData);
               }
               break;
 
