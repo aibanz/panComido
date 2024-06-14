@@ -1,7 +1,14 @@
-td {
+body{
+  font-family: "Great Vibes", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 22px; 
+  color: #020202; 
+}
+.title {
     font-family: "Great Vibes", cursive;
     font-weight: 400;
-    font-style: normal;
+    font-style: bold;
     font-size: 22px; 
     color: #020202;    
   }
@@ -26,4 +33,28 @@ h2 {
     font-size: small;
     text-shadow: 1px 1px 1px #fff;
     text-transform: uppercase;
+  }
+
+  .divBottom {
+    position: relative;
+    z-index : 1;
+    background: #eee;
+    padding-top: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+  }
+  
+  .divBottom:before {
+    content : "";
+    position: absolute;
+    left    : 25%;
+    bottom  : 0;
+    height  : 1px;
+    width   : 50%;  /* or 100px */
+    border-bottom:1px solid rgb(88, 88, 88);
+  }
+  .imgHeader {
+    bottom: -10px;
+    position: relative;
+    z-index: 2;
   }

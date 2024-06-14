@@ -29,7 +29,7 @@ function crearElementos(data) {
 
   // Función para crear una celda de datos
   function createDataCell(value, header) {
-    const cell = document.createElement("td");
+    const cell = document.createElement("div");
     cell.textContent = value;
     cell.className = "align-middle";
     const uppercaseValue = typeof value === 'string' ? value.toUpperCase() : value;
@@ -51,7 +51,7 @@ function crearElementos(data) {
         cell.innerHTML = "$" + value;
         break;
       case "NOMBRE":
-        cell.className = "font-weight-bold text-left align-middle";
+        cell.className = "title font-weight-bold";
         break;
     }
 
@@ -86,12 +86,12 @@ function crearElementos(data) {
     li.appendChild(a);
 
     // Crear tabla
-    var table = document.createElement("table");
+    var table = document.createElement("div");
     var headers = Object.keys(sheet.datos[0]);
-    var headerRow = document.createElement("tr");
+    //var headerRow = document.createElement("tr");
     table.setAttribute(
       "class",
-      "table table-borderless table align-middle text-wrap"
+      "table table-borderless table align-middle text-wrap "
     );
 
     // Comprobar la existencia del encabezado "Imagen"
@@ -107,23 +107,24 @@ function crearElementos(data) {
     // }
 
     // Crear celdas de encabezado (excepto "Imagen")
-    headers.forEach((header) => {
-      if (header !== "") {
-        headerRow.appendChild(createHeaderCell(header, hasImageHeader));
-      }
-    });
+    // headers.forEach((header) => {
+    //   if (header !== "") {
+    //     headerRow.appendChild(createHeaderCell(header, hasImageHeader));
+    //   }
+    // });
 
-    table.appendChild(headerRow);
+    //table.appendChild(headerRow);
 
     // Crear celdas de datos
     sheet.datos.forEach((rowData) => {
-      var row = document.createElement("tr");
-
+      var row = document.createElement("div");
+        row.className="divBottom";
       // Si el encabezado "Imagen" existe y hay una URL de imagen proporcionada en los datos
       if (hasImageHeader && rowData["Imagen"] !== "") {
-        var imgRow = document.createElement("tr");
-        var cellImagen = document.createElement("td");
-        cellImagen.colSpan = headers.length;
+        var imgRow = document.createElement("div");
+        var cellImagen = document.createElement("div");
+        cellImagen.className="imgHeader"
+        //cellImagen.colSpan = headers.length;
         addImageToRow(cellImagen, rowData["Imagen"]);
         imgRow.appendChild(cellImagen);
         table.appendChild(imgRow);
