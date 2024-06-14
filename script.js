@@ -1,18 +1,5 @@
-//Obtener el JSON desde la URL proporcionada
-fetch(
-  "https://script.google.com/macros/s/AKfycbwaC-qrjz7qICzBgPvp7D5JyLDb7IHOQagN4cV7N8jlG4H9kS9OdUN2OVvyFFyenVI0/exec"
-)
-  .then((response) => response.json())
-  .then((data) => {
-    // Procesar y mostrar los datos en la página
-    mostrarDatos(data);
-  })
-  .catch((error) => {
-    console.error("Error al obtener los datos:", error);
-  });
-
-// Función para mostrar los datos en la página
-function mostrarDatos(data) {
+// Función para crear los elementos HTML
+function crearElementos(data) {
   var name = document.getElementById("brand-name");
   var brandName = document.createElement("a");
   brandName.className = "navbar-brand";
@@ -31,6 +18,55 @@ function mostrarDatos(data) {
   // crear tabla de contenido
   var dataDiv = document.getElementById("data");
   dataDiv.innerHTML = " "; // Limpiar el contenido
+
+  // Función para crear una celda de encabezado
+  function createHeaderCell(header, hasImageHeader) {
+    const th = document.createElement("th");
+    th.className = hasImageHeader && header === "Imagen" ? "col-1" : "col-5";
+    th.textContent = "";
+    return th;
+  }
+
+  // Función para crear una celda de datos
+  function createDataCell(value, header) {
+    const cell = document.createElement("td");
+    cell.textContent = value;
+    cell.className = "align-middle";
+    const uppercaseValue = typeof value === 'string' ? value.toUpperCase() : value;
+
+    switch (header.toUpperCase()) {
+      case "VEGANO":
+        if (uppercaseValue === "SI") {
+          cell.textContent = "";
+          addImageToRow(cell, "./img/VEGAN.png", "logo");
+        }
+        break;
+      case "SINTACC":
+        if (uppercaseValue === "SI") {
+          cell.textContent = "";          
+          addImageToRow(cell, "./img/SINTACC.png", "logo");
+        }
+        break;
+      case "PRECIO":
+        cell.innerHTML = "$" + value;
+        break;
+      case "NOMBRE":
+        cell.className = "font-weight-bold text-left align-middle";
+        break;
+    }
+
+    return cell;
+  }
+
+  // Función para crear un elemento img y añadirlo a la fila
+  function addImageToRow(row, src, rowData) {
+    var img = document.createElement("img");
+    img.src = src;
+    img.style.borderRadius='50%';
+    //img.alt = rowData["Nombre"]; // Puedes establecer un atributo alt con el nombre del producto
+    rowData==="logo"?img.style.maxWidth = "40px":img.style.maxWidth = "80px"; // Establece un ancho máximo opcional
+    row.appendChild(img);
+  }
 
   data.map((sheet) => {
     var sheetDiv = document.createElement("div");
@@ -55,97 +91,48 @@ function mostrarDatos(data) {
     var headerRow = document.createElement("tr");
     table.setAttribute(
       "class",
-      "table table-borderless table align-middle text-wrap table-sm"
+      "table table-borderless table align-middle text-wrap"
     );
 
-    // Si el encabezado "Imagen" existe, añadirlo al principio
-    if (headers.includes("Imagen")) {
-      var thImagen = document.createElement("th");
-      thImagen.setAttribute("scope", "col");
-      thImagen.textContent = "";
-      thImagen.className = "text-left col-1";
-      headerRow.appendChild(thImagen);
-    }
+    // Comprobar la existencia del encabezado "Imagen"
+    var hasImageHeader = headers.includes("Imagen");
+
+    // // Si el encabezado "Imagen" existe, añadirlo al principio
+    // if (hasImageHeader) {
+    //   var thImagen = document.createElement("th");
+    //   thImagen.className = "col-2";
+    //   thImagen.textContent = "";
+    //   thImagen.className = "text-left col-4";
+    //   headerRow.appendChild(thImagen);
+    // }
 
     // Crear celdas de encabezado (excepto "Imagen")
-headers.forEach((header) => {
-    if (header !== "") {
-        var th = document.createElement("th");
-        if (header === "Imagen") {
-            th.setAttribute("scope", "col");
-            th.textContent = header;
-            th.className = "col-1";
-            th.textContent = "";
-        } else {
-            th.className = "col-5";
-        }
-        headerRow.appendChild(th);
-    }
-});
+    headers.forEach((header) => {
+      if (header !== "") {
+        headerRow.appendChild(createHeaderCell(header, hasImageHeader));
+      }
+    });
 
     table.appendChild(headerRow);
-
-    // Función para crear un elemento img y añadirlo a la fila
-    function addImageToRow(row, src, rowData) {
-      var img = document.createElement("img");
-      img.src = src;
-      //img.alt = rowData["Nombre"]; // Puedes establecer un atributo alt con el nombre del producto
-      img.style.maxWidth = "40px"; // Establece un ancho máximo opcional
-      //img.className ="rounded align-middle"
-      row.appendChild(img);
-    }
 
     // Crear celdas de datos
     sheet.datos.forEach((rowData) => {
       var row = document.createElement("tr");
 
       // Si el encabezado "Imagen" existe y hay una URL de imagen proporcionada en los datos
-      if (headers.includes("Imagen") && rowData["Imagen"] !== "") {
+      if (hasImageHeader && rowData["Imagen"] !== "") {
+        var imgRow = document.createElement("tr");
         var cellImagen = document.createElement("td");
-        var img = document.createElement("img");
-        img.src = rowData["Imagen"];
-        img.alt = rowData["Nombre"]; // Puedes establecer un atributo alt con el nombre del producto
-        img.style.maxWidth = "80px"; // Establece un ancho máximo opcional
-        img.className = "rounded align-middle";
-        cellImagen.appendChild(img);
-        cellImagen.className = "align-middle";
-        row.appendChild(cellImagen);
-      } else if (!headers.includes("")){
-        var cubo = document.createElement("div");
-        cubo.style.width = "80px";
-        row.appendChild(cubo);
+        cellImagen.colSpan = headers.length;
+        addImageToRow(cellImagen, rowData["Imagen"]);
+        imgRow.appendChild(cellImagen);
+        table.appendChild(imgRow);
       }
 
       // Crear celdas de datos (excepto "Imagen")
       headers.forEach((header) => {
         if (header !== "Imagen") {
-          var cell = document.createElement("td");
-          cell.textContent = rowData[header];
-          cell.className = "align-middle ";
-          header==="Nombre"?cell.className = "font-weight-bold":""
-          
-
-          switch (header) {
-            case "Vegano":
-              if (rowData["Vegano"] === "SI") {
-                addImageToRow(row, "./img/VEGAN.png", rowData);
-              }
-              break;
-
-            case "SinTacc":
-              if (rowData["SinTacc"] === "SI") {
-                addImageToRow(row, "./img/SINTACC.png", rowData);
-              }
-              break;
-
-              case "Precio":
-
-              cell.innerHTML = "$" + cell.innerHTML
-                              
-            default:
-              row.appendChild(cell);
-              break;
-          }
+          row.appendChild(createDataCell(rowData[header], header));
         }
       });
 
@@ -156,3 +143,16 @@ headers.forEach((header) => {
     dataDiv.appendChild(sheetDiv);
   });
 }
+
+// Función para presentar los elementos en la página
+async function mostrarDatos() {
+  try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbwaC-qrjz7qICzBgPvp7D5JyLDb7IHOQagN4cV7N8jlG4H9kS9OdUN2OVvyFFyenVI0/exec");
+    const data = await response.json();
+    crearElementos(data);
+  } catch (error) {
+    console.error("Error al obtener los datos:", error);
+  }
+}
+
+mostrarDatos();
