@@ -20,16 +20,18 @@ function crearElementos(data) {
   dataDiv.innerHTML = " "; // Limpiar el contenido
 
   // Función para crear una celda de encabezado
-  function createHeaderCell(header, hasImageHeader) {
-    const th = document.createElement("th");
-    th.className = hasImageHeader && header === "Imagen" ? "col-1" : "col-5";
-    th.textContent = "";
-    return th;
-  }
+  // function createHeaderCell(header, hasImageHeader) {
+  //   const th = document.createElement("th");
+  //   th.className = hasImageHeader && header === "Imagen" ? "col-1" : "col-5";
+  //   th.textContent = "";
+  //   return th;
+  // }
 
   // Función para crear una celda de datos
   function createDataCell(value, header) {
     const cell = document.createElement("div");
+    const link = document.createElement("a")
+    const icon = document.createElement('i')
     cell.textContent = value;
     cell.className = "align-middle";
     const uppercaseValue =
@@ -55,6 +57,26 @@ function crearElementos(data) {
       case "NOMBRE":
         cell.className = "title font-weight-bold";
         break;
+
+        case "WHATSAPP":
+        link.href = "https://wa.me/"+ value;
+        link.innerText = value;
+        icon.className=('bi bi-whatsapp')
+        cell.textContent = "";
+        cell.appendChild(icon)        
+        cell.appendChild(link)
+        break;
+
+        case "INSTAGRAM":
+          link.href = "https://instagram.com/"+ value;
+          link.innerText = value;
+          icon.className=('bi bi-instagram')
+          cell.textContent = "";
+          cell.appendChild(icon)          
+          cell.appendChild(link)
+
+          break;
+
     }
 
     return cell;
@@ -80,11 +102,16 @@ function crearElementos(data) {
     row.appendChild(img);
   }
 
-  data.map((sheet) => {
+  data.map((sheet, index, data) => {
     var sheetDiv = document.createElement("div");
     sheetDiv.id = sheet.hoja;
-    sheetDiv.innerHTML = `<h2>${sheet.hoja}</h2>`;
-    sheetDiv.className = "mt-4 bg-light border-bottom";
+    if (index === 0 || index +1 === data.length ) {
+      
+    }else{
+      sheetDiv.innerHTML = `<h2>${sheet.hoja}</h2>`;
+      sheetDiv.className = "mt-4 bg-light border-bottom";  
+    }
+    
 
     // Crear lista de navegación
     var li = document.createElement("li");
@@ -148,6 +175,7 @@ function crearElementos(data) {
         if (header !== "Imagen") {
           row.appendChild(createDataCell(rowData[header], header));
         }
+        
       });
 
       table.appendChild(row);
