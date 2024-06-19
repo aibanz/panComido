@@ -32,7 +32,7 @@ function crearElementos(data) {
   // Función para crear una celda de datos
   function createDataCell(value, header) {
     const cell = document.createElement("div");
-    const link = document.createElement("a")
+    //const link = document.createElement("a")
     const icon = document.createElement('i')
     cell.textContent = value;
     cell.className = "align-middle";    
@@ -61,32 +61,32 @@ function crearElementos(data) {
         break;
 
         case "WHATSAPP":
-        link.href = "https://wa.me/"+ value;
-        link.innerText = value;
+        //link.href = "https://wa.me/"+ value;
+        //link.innerText = value;
         icon.className=('bi bi-whatsapp')
-        cell.textContent = value;
+        cell.textContent = "";
         cell.appendChild(icon)          
-        cell.setAttribute('href',link)
+        cell.setAttribute('href',"https://wa.me/"+ value)
         cell.className ="link"
         break;
 
         case "INSTAGRAM":
-          link.href = "https://instagram.com/"+ value;
-          link.innerText = value;
+          //cell.href = "https://instagram.com/"+ value;
+          //link.innerText = value;
           icon.className=('bi bi-instagram')
           cell.textContent = "";
           cell.appendChild(icon)          
-          cell.setAttribute('href',link)
+          cell.setAttribute('href',"https://instagram.com/"+ value)
           cell.className ="link"
           break;
 
           case "FACEBOOK":
             cell.href = "https://FACEBOOK.com/"+ value;
-            link.innerText = value;
+            //link.innerText = value;
             icon.className=('bi bi-facebook')
             cell.textContent = "";
             cell.appendChild(icon)          
-            cell.setAttribute('href',link)
+            cell.setAttribute('href',"https://FACEBOOK.com/")
             cell.className ="link"
             break;
 
