@@ -27,13 +27,15 @@ function crearElementos(data) {
   //   return th;
   // }
 
+
+
   // Función para crear una celda de datos
   function createDataCell(value, header) {
     const cell = document.createElement("div");
     const link = document.createElement("a")
     const icon = document.createElement('i')
     cell.textContent = value;
-    cell.className = "align-middle";
+    cell.className = "align-middle";    
     const uppercaseValue =
       typeof value === "string" ? value.toUpperCase() : value;
 
@@ -62,9 +64,10 @@ function crearElementos(data) {
         link.href = "https://wa.me/"+ value;
         link.innerText = value;
         icon.className=('bi bi-whatsapp')
-        cell.textContent = "";
-        cell.appendChild(icon)        
-        cell.appendChild(link)
+        cell.textContent = value;
+        cell.appendChild(icon)          
+        cell.setAttribute('href',link)
+        cell.className ="link"
         break;
 
         case "INSTAGRAM":
@@ -73,14 +76,30 @@ function crearElementos(data) {
           icon.className=('bi bi-instagram')
           cell.textContent = "";
           cell.appendChild(icon)          
-          cell.appendChild(link)
-
+          cell.setAttribute('href',link)
+          cell.className ="link"
           break;
+
+          case "FACEBOOK":
+            cell.href = "https://FACEBOOK.com/"+ value;
+            link.innerText = value;
+            icon.className=('bi bi-facebook')
+            cell.textContent = "";
+            cell.appendChild(icon)          
+            cell.setAttribute('href',link)
+            cell.className ="link"
+            break;
 
     }
 
+    cell.addEventListener('click', function() {
+        // Llama a la función handleClick con la URL deseada como parámetro
+        window.location.href =this.attributes.href.nodeValue;
+    });
     return cell;
   }
+
+
 
   // Función para crear un elemento img y añadirlo a la fila
   function addImageToRow(row, src, rowData) {

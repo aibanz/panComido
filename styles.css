@@ -4,6 +4,7 @@ body {
   font-style: normal;
   font-size: 16px;
   color: #020202;
+  text-decoration: none;
 }
 .title {
   font-family: "Roboto", sans-serif;
@@ -91,4 +92,8 @@ h2:after {
 .logos{
   display: inline;
 
+}
+.link{
+  cursor: pointer;
+  
 }
