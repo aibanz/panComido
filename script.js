@@ -32,7 +32,8 @@ function crearElementos(data) {
     const cell = document.createElement("div");
     cell.textContent = value;
     cell.className = "align-middle";
-    const uppercaseValue = typeof value === 'string' ? value.toUpperCase() : value;
+    const uppercaseValue =
+      typeof value === "string" ? value.toUpperCase() : value;
 
     switch (header.toUpperCase()) {
       case "VEGANO":
@@ -43,12 +44,13 @@ function crearElementos(data) {
         break;
       case "SINTACC":
         if (uppercaseValue === "SI") {
-          cell.textContent = "";          
+          cell.textContent = "";
           addImageToRow(cell, "./img/SINTACC.png", "logo");
         }
         break;
       case "PRECIO":
         cell.innerHTML = "$" + value;
+        cell.className="price";
         break;
       case "NOMBRE":
         cell.className = "title font-weight-bold";
@@ -62,9 +64,19 @@ function crearElementos(data) {
   function addImageToRow(row, src, rowData) {
     var img = document.createElement("img");
     img.src = src;
-    img.style.borderRadius='50%';
+
     //img.alt = rowData["Nombre"]; // Puedes establecer un atributo alt con el nombre del producto
-    rowData==="logo"?img.style.maxWidth = "40px":img.style.maxWidth = "80px"; // Establece un ancho máximo opcional
+    if (rowData === "logo") {      
+      row.className="logos"
+      img.style.maxWidth="40px"
+    } else {
+      img.style.maxWidth = "140px";
+      img.style.border = "solid 2px #c79534";
+      img.style.borderRadius = "50%";
+    }
+
+    //rowData==="logo"?img.style.maxWidth = "40px":img.style.maxWidth = "140px"; // Establece un ancho máximo opcional
+
     row.appendChild(img);
   }
 
@@ -80,7 +92,8 @@ function crearElementos(data) {
     var a = document.createElement("a");
     a.href = "#" + sheet.hoja;
     a.textContent = sheet.hoja;
-    a.className = 'nav-link data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" text-muted';
+    a.className =
+      'nav-link data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" text-muted';
     var liNav = document.getElementById("navlist");
     liNav.appendChild(li);
     li.appendChild(a);
@@ -118,12 +131,12 @@ function crearElementos(data) {
     // Crear celdas de datos
     sheet.datos.forEach((rowData) => {
       var row = document.createElement("div");
-        row.className="divBottom";
+      row.className = "divBottom";
       // Si el encabezado "Imagen" existe y hay una URL de imagen proporcionada en los datos
       if (hasImageHeader && rowData["Imagen"] !== "") {
         var imgRow = document.createElement("div");
         var cellImagen = document.createElement("div");
-        cellImagen.className="imgHeader"
+        cellImagen.className = "imgHeader";
         //cellImagen.colSpan = headers.length;
         addImageToRow(cellImagen, rowData["Imagen"]);
         imgRow.appendChild(cellImagen);
@@ -148,7 +161,9 @@ function crearElementos(data) {
 // Función para presentar los elementos en la página
 async function mostrarDatos() {
   try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbwaC-qrjz7qICzBgPvp7D5JyLDb7IHOQagN4cV7N8jlG4H9kS9OdUN2OVvyFFyenVI0/exec");
+    const response = await fetch(
+      "https://script.google.com/macros/s/AKfycbwaC-qrjz7qICzBgPvp7D5JyLDb7IHOQagN4cV7N8jlG4H9kS9OdUN2OVvyFFyenVI0/exec"
+    );
     const data = await response.json();
     crearElementos(data);
   } catch (error) {

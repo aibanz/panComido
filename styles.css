@@ -1,60 +1,94 @@
-body{
-  font-family: "Great Vibes", cursive;
-  font-weight: 400;
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
   font-style: normal;
-  font-size: 22px; 
-  color: #020202; 
+  font-size: 16px;
+  color: #020202;
 }
 .title {
-    font-family: "Great Vibes", cursive;
-    font-weight: 400;
-    font-style: bold;
-    font-size: 22px; 
-    color: #020202;    
-  }
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-size: 18px;
+  color: #d2ab5f;
+}
 
 h2 {
-    font-family: "Great Vibes", cursive;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 36px; 
-    color: #c79534;
-    text-align: center;
-  }
-  .share-tech-mono-regular {
-    font-family: "Share Tech Mono", monospace;
-    font-weight: 400;
-    font-style: normal;
-  }
-  .text-muted{
-    font-family: "Share Tech Mono", monospace;
-    font-weight: 400;
-    font-style: normal;
-    font-size: small;
-    text-shadow: 1px 1px 1px #fff;
-    text-transform: uppercase;
-  }
+  text-align:center;
+  text-transform:uppercase;
+  font-size:26px; letter-spacing:1px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: 16px 0;
+  grid-gap: 22px;
+  font-family: serif;
+}
+.share-tech-mono-regular {
+  font-family: "Share Tech Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+h2:before {
+  content: " ";
+  display: block;
+  border-bottom: 2px solid #d2ab5f;
+  background-color:transparent;
+  margin-left: 30px;
+}
+h2:after {
+  content: " ";
+  display: block;
+  border-bottom: 2px solid #d2ab5f;
+  background-color:transparent;
+  margin-right: 30px;
+}
 
-  .divBottom {
-    position: relative;
-    z-index : 1;
-    background: #eee;
-    padding-top: 10px;
-    margin-top: 10px;
-    border-radius: 5px;
-  }
-  
-  .divBottom:before {
-    content : "";
-    position: absolute;
-    left    : 25%;
-    bottom  : 0;
-    height  : 1px;
-    width   : 50%;  /* or 100px */
-    border-bottom:1px solid rgb(88, 88, 88);
-  }
-  .imgHeader {
-    bottom: -10px;
-    position: relative;
-    z-index: 2;
-  }
+.text-muted {
+  font-family: "Share Tech Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+  font-size: small;
+  text-shadow: 1px 1px 1px #fff;
+  text-transform: uppercase;
+}
+
+.divBottom {
+  position: relative;
+  z-index: 1;
+  padding-top: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  padding-bottom: 25px;
+}
+
+/* .divBottom:before {
+  content: "";
+  position: absolute;
+  left: 25%;
+  bottom: 0;
+  height: 1px;
+  width: 50%; 
+  border-bottom: 1px solid rgb(88, 88, 88);
+}
+ */
+ .imgHeader {
+  z-index: 2;
+  padding-top: 20px;
+}
+.imgHeader:after {
+  z-index: 2;
+  padding-top: 20px;
+}
+
+.roboto-thin {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+.price{
+  font-style: italic;
+    font-weight: 400;
+}
+.logos{
+  display: inline;
+
+}
