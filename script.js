@@ -7,6 +7,7 @@ function crearElementos(data) {
   brandName.href = "#" + data[0].hoja;
   name.appendChild(brandName);
 
+
   //footer
   var footer = document.getElementById("footer");
   spanF = document.createElement("span");
@@ -93,7 +94,7 @@ function crearElementos(data) {
     }
 
     cell.addEventListener('click', function() {
-        // Llama a la función handleClick con la URL deseada como parámetro
+        
         window.location.href =this.attributes.href.nodeValue;
     });
     return cell;
@@ -138,8 +139,9 @@ function crearElementos(data) {
     var a = document.createElement("a");
     a.href = "#" + sheet.hoja;
     a.textContent = sheet.hoja;
-    a.className =
-      'nav-link data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" text-muted';
+    a.className ='nav-link  text-muted';
+     // a.setAttribute('data-bs-toggle','collapse')
+     // a.setAttribute('data-bs-target','#navbarNav')
     var liNav = document.getElementById("navlist");
     liNav.appendChild(li);
     li.appendChild(a);
@@ -203,6 +205,19 @@ function crearElementos(data) {
     sheetDiv.appendChild(table);
     dataDiv.appendChild(sheetDiv);
   });
+  // Obtener todos los elementos <a> dentro de la barra de navegación
+var navLinks = document.querySelectorAll('.navbar-nav li a');
+
+// Iterar sobre cada enlace y agregar un evento de clic
+navLinks.forEach(function(navLink) {
+  navLink.addEventListener('click', function() {
+    // Encontrar la barra de navegación y ocultarla
+    var navbarCollapse = document.querySelector('.navbar-collapse');
+    if (navbarCollapse.classList.contains('show')) {
+      navbarCollapse.classList.remove('show');
+    }
+  });
+});
 }
 
 // Función para presentar los elementos en la página
@@ -219,3 +234,4 @@ async function mostrarDatos() {
 }
 
 mostrarDatos();
+

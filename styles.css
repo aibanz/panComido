@@ -97,3 +97,10 @@ h2:after {
   cursor: pointer;
   font-size: 40px
 }
+.footer{
+
+  background-color: #e3e7e7;
+    border-radius: 10px 10px 0px 0px;
+    height: 26px;
+    color: black;
+}
