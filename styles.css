@@ -104,3 +104,6 @@ h2:after {
     height: 26px;
     color: black;
 }
+.accordion-button{
+  border: none
+}
