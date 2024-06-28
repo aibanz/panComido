@@ -67,6 +67,19 @@ function crearElementos(data) {
       var row = document.createElement("div");
       row.className = "divBottom";
 
+      // Verificar si el encabezado "Imagen" existe en la fila actual de datos
+      var hasImageHeader = Object.keys(rowData).includes("Imagen");
+
+      // Si el encabezado "Imagen" existe y hay una URL de imagen proporcionada en los datos
+      if (hasImageHeader && rowData["Imagen"] !== "") {
+        var imgRow = document.createElement("div");
+        var cellImagen = document.createElement("div");
+        cellImagen.className = "imgHeader";        
+        imgRow.appendChild(cellImagen);
+        row.appendChild(imgRow);
+        addImageToRow(cellImagen, rowData["Imagen"]);
+      }
+
       // Crear celdas de datos
       headers.forEach((header) => {
         if (header !== "Imagen") {
@@ -75,20 +88,8 @@ function crearElementos(data) {
           row.appendChild(dataCell);
         }
       });
-      
-      // Verificar si el encabezado "Imagen" existe en la fila actual de datos
-      var hasImageHeader = Object.keys(rowData).includes("Imagen");
-      
-      // Si el encabezado "Imagen" existe y hay una URL de imagen proporcionada en los datos
-      if (hasImageHeader && rowData["Imagen"] !== "") {
-        var imgRow = document.createElement("div");
-        var cellImagen = document.createElement("div");
-        cellImagen.className = "imgHeader";
-        addImageToRow(cellImagen, rowData["Imagen"]);
-        imgRow.appendChild(cellImagen);
-        table.appendChild(imgRow);
-      }
-      
+
+
 
       table.appendChild(row);
     });
@@ -184,7 +185,7 @@ function createDataCell(value, header) {
   }
 
   // Add an event listener to the cell to handle click events
-  cell.addEventListener('click', function () {
+  cell.addEventListener('click', function() {
     // Navigate to the URL specified in the cell's href attribute
     window.location.href = this.attributes.href.nodeValue;
   });
@@ -193,25 +194,25 @@ function createDataCell(value, header) {
   return cell;
 }
 
-  // Función para crear un elemento img y añadirlo a la fila
-  function addImageToRow(row, src, rowData) {
-    var img = document.createElement("img");
-    img.src = src;
+// Función para crear un elemento img y añadirlo a la fila
+function addImageToRow(row, src, rowData) {
+  var img = document.createElement("img");
+  img.src = src;
 
-    //img.alt = rowData["Nombre"]; // Puedes establecer un atributo alt con el nombre del producto
-    if (rowData === "logo") {      
-      row.className="logos"
-      img.style.maxWidth="40px"
-    } else {
-      img.style.maxWidth = "140px";
-      img.style.border = "solid 2px #c79534";
-      img.style.borderRadius = "50%";
-    }
-
-    //rowData==="logo"?img.style.maxWidth = "40px":img.style.maxWidth = "140px"; // Establece un ancho máximo opcional
-
-    row.appendChild(img);
+  //img.alt = rowData["Nombre"]; // Puedes establecer un atributo alt con el nombre del producto
+  if (rowData === "logo") {
+    row.className = "logos"
+    img.style.maxWidth = "40px"
+  } else {
+    img.style.maxWidth = "140px";
+    img.style.border = "solid 2px #c79534";
+    img.style.borderRadius = "50%";
   }
+
+  //rowData==="logo"?img.style.maxWidth = "40px":img.style.maxWidth = "140px"; // Establece un ancho máximo opcional
+
+  row.appendChild(img);
+}
 
 async function mostrarDatos() {
   try {
@@ -226,3 +227,4 @@ async function mostrarDatos() {
 }
 
 mostrarDatos();
+s
