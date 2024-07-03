@@ -6,22 +6,23 @@ function crearElementos(data) {
   brandName.href = "#" + data[0].hoja;
   name.appendChild(brandName);
 
-  //footer
-  var footer = document.getElementById("footer");
-  var spanF = document.createElement("span");
-  spanF.className = "text-muted share-tech-mono-regular";
-  spanF.textContent = "Menú creado por Pan Comido";
-  footer.appendChild(spanF);
-  //fin footer
+  // //footer
+  // var footer = document.getElementById("footer");
+  // var spanF = document.createElement("span");
+  // spanF.className = "text-muted share-tech-mono-regular";
+  // spanF.textContent = "Menú creado por Pan Comido";
+  // footer.appendChild(spanF);
+  // //fin footer
 
   // Obtener el contenedor donde se agregarán los acordeones
   var accordionContainer = document.getElementById("accordionContainer");
 
-  data.forEach((sheet, index) => {
+  data.forEach((sheet, index,arr) => {
     // Crear el elemento de acordeón
     var accordionItem = document.createElement("div");
     accordionItem.className = "accordion-item";
 
+    
     // Encabezado del acordeón
     var accordionHeader = document.createElement("h2");
     accordionHeader.className = "accordion-header";
@@ -30,21 +31,26 @@ function crearElementos(data) {
     var accordionButton = document.createElement("button");
     accordionButton.className = "accordion-button";
     accordionButton.type = "button";
-    accordionButton.setAttribute("data-bs-toggle", "collapse");
-    accordionButton.setAttribute("data-bs-target", "#collapse" + index);
-    accordionButton.setAttribute("aria-expanded", "true");
-    accordionButton.setAttribute("aria-controls", "collapse" + index);
-    accordionButton.textContent = sheet.hoja;
-
-    accordionHeader.appendChild(accordionButton);
-    accordionItem.appendChild(accordionHeader);
+    accordionButton.setAttribute("data-bs-toggle", "collapse");  
+    if (index === 0 || index === arr.length -1) {}else{
+     
+      accordionButton.setAttribute("data-bs-target", "#collapse" + index);
+      accordionButton.setAttribute("aria-expanded", "true");
+      accordionButton.setAttribute("aria-controls", "collapse" + index);
+      accordionButton.textContent = sheet.hoja;
+      accordionHeader.appendChild(accordionButton);
+      accordionItem.appendChild(accordionHeader);
+    }
+    
+ 
 
     // Cuerpo del acordeón
     var accordionCollapse = document.createElement("div");
     accordionCollapse.id = "collapse" + index;
     accordionCollapse.className = "accordion-collapse collapse";
-    if (index === 0) {
-      accordionCollapse.className += " show"; // Mostrar el primer acordeón al cargar
+    if (index === 0 || index === arr.length -1) {
+      accordionCollapse.className += "show"; // Mostrar el primer acordeón al cargar
+      accordionHeader.textContent = ""
     }
     accordionCollapse.setAttribute("aria-labelledby", "heading" + index);
     accordionCollapse.setAttribute("data-bs-parent", "#accordionContainer");
@@ -97,7 +103,6 @@ function crearElementos(data) {
     accordionBody.appendChild(table);
     accordionCollapse.appendChild(accordionBody);
     accordionItem.appendChild(accordionCollapse);
-
     accordionContainer.appendChild(accordionItem);
   });
 
@@ -136,13 +141,16 @@ function createDataCell(value, header) {
       if (uppercaseValue === "SI") {
         // Clear text content if value is "SI" and add an image
         cell.textContent = "";
+        cell.className = "logos";
         addImageToRow(cell, "./img/VEGAN.png", "logo");
+        
       }
       break;
     case "SINTACC":
       if (uppercaseValue === "SI") {
         // Clear text content if value is "SI" and add an image
         cell.textContent = "";
+        cell.className = "logos";
         addImageToRow(cell, "./img/SINTACC.png", "logo");
       }
       break;
@@ -200,31 +208,35 @@ function addImageToRow(row, src, rowData) {
   img.src = src;
 
   //img.alt = rowData["Nombre"]; // Puedes establecer un atributo alt con el nombre del producto
-  if (rowData === "logo") {
-    row.className = "logos"
-    img.style.maxWidth = "40px"
-  } else {
-    img.style.maxWidth = "140px";
-    img.style.border = "solid 2px #c79534";
-    img.style.borderRadius = "50%";
-  }
+rowData!="logo"?img.className="image":img.className="logos"
+
+  // if (rowData === "logo") {
+  //   row.className = "logos"
+  //   img.style.maxWidth = "40px"
+  // } else {
+  //   img.style.maxWidth = "140px";
+  //   img.style.border = "solid 2px #c79534";
+  //   img.style.borderRadius = "50%";
+  // }
 
   //rowData==="logo"?img.style.maxWidth = "40px":img.style.maxWidth = "140px"; // Establece un ancho máximo opcional
 
   row.appendChild(img);
 }
 
-async function mostrarDatos() {
-  try {
-    const response = await fetch(
-      "https://script.google.com/macros/s/AKfycbwaC-qrjz7qICzBgPvp7D5JyLDb7IHOQagN4cV7N8jlG4H9kS9OdUN2OVvyFFyenVI0/exec"
-    );
-    const data = await response.json();
-    crearElementos(data);
-  } catch (error) {
-    console.error("Error al obtener los datos:", error);
-  }
-}
-
-mostrarDatos();
-s
+// async function mostrarDatos() {
+//   try {
+//     const response = await fetch(
+//       "https://script.google.com/macros/s/AKfycbwaC-qrjz7qICzBgPvp7D5JyLDb7IHOQagN4cV7N8jlG4H9kS9OdUN2OVvyFFyenVI0/exec"
+//     );
+//     const data = await response.json();
+//     crearElementos(data);
+//   } catch (error) {
+//     console.error("Error al obtener los datos:", error);
+//   }
+// }
+//mostrarDatos();
+const data = [{"hoja":"Pan Comido","datos":[{"Descripcion":"Bienvenido a nuestro Menú aqui podrá encontrar todas las opciones actualizadas y disponibles.","Imagen":"./img/PANCOMIDO.png"}]},{"hoja":"Aperitivos","datos":[{"Nombre":"Fernet Branca","Descripcion":"","Precio":4000,"Imagen":"","Vegano":"","SinTacc":""},{"Nombre":"Campari","Descripcion":"","Precio":4500,"Imagen":"","Vegano":"","SinTacc":""},{"Nombre":"Gin tonic","Descripcion":"Gin con menta y limon","Precio":5200,"Imagen":"","Vegano":"","SinTacc":""}]},{"hoja":"Entradas","datos":[{"Nombre":"Pate de Pato","Descripcion":"Pate hecho a mano de pato patagonico","Precio":2500,"Imagen":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3kd8I21l9C19z1nnLO1WAbVLgPkLJ6cAiYw&s","Vegano":"SI","SinTacc":"SI"},{"Nombre":"Tabla de fiambres","Descripcion":"Todas las texturas de la tabla clasica Argentina.","Precio":4200,"Imagen":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiHmVek0M_iBZwnKiPMwPsVhl7phSkmtPGFg&s","Vegano":"SI","SinTacc":"Si"}]},{"hoja":"Principal","datos":[{"Nombre":"Handmade duck pate","Descripcion":"Hamburguesa doble con panceta chedar y salsa especial","Precio":4200,"Imagen":"","Vegano":"","SinTacc":""},{"Nombre":"Asado Criollo ","Descripcion":"Asado de coccion lenta echo a la leña","Precio":6100,"Imagen":"","Vegano":"","SinTacc":"SI"},{"Nombre":"ñoquis ","Descripcion":"ñoquis de papa ","Precio":3200,"Imagen":"","Vegano":"","SinTacc":""},{"Nombre":"pastas","Descripcion":"fideo tallarín ","Precio":2300,"Imagen":"","Vegano":"","SinTacc":"si"}]},{"hoja":"Bebidas","datos":[{"Nombre":"Agua con gas","Descripcion":"Agua del manantial","Precio":8000,"Imagen":"","Vegano":"","SinTacc":""},{"Nombre":"Cerveza 1l","Descripcion":"Cerveza tirada artesanal ","Precio":12000,"Imagen":"https://estaticos-cdn.prensaiberica.es/clip/326588c9-f817-4753-a57d-953afd7f0210_alta-aspect-ratio_default_0.jpg","Vegano":"","SinTacc":""}]},{"hoja":"Postres","datos":[{"Nombre":"Postre Oreo","Descripcion":"Pastel de queso con colchon de oreos","Precio":4200,"Imagen":"","Vegano":"","SinTacc":""},{"Nombre":"Flan D&C","Descripcion":"Flan con dulce y crema","Precio":3000,"Imagen":"","Vegano":"","SinTacc":""}]},{"hoja":"Rutini","datos":[{"Nombre":"Trumpeter Cab. Franc","Descripcion":"","Precio":12000,"Imagen":"","Vegano":"","SinTacc":""},{"Nombre":"Rutini Malbec","Descripcion":"","Precio":38500,"Imagen":"","Vegano":"","SinTacc":""},{"Nombre":"Rutini Mal. Cab. Sau","Descripcion":"","Precio":21000,"Imagen":"","Vegano":"","SinTacc":""}]},{"hoja":"Contacto","datos":[{"Horario":"Seguinos en las redes","WhatsApp":5491158000906,"Instagram":"Aibanz_Zubi","Facebook":"Aibanzz","X":""}]}]
+window.addEventListener("load", function(event) {
+  crearElementos(data);
+});

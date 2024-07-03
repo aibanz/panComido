@@ -59,6 +59,7 @@ h2:after {
   margin-top: 10px;
   border-radius: 5px;
   padding-bottom: 25px;
+  background-color: #f3f3f3;
 }
 
 /* .divBottom:before {
@@ -73,7 +74,7 @@ h2:after {
  */
  .imgHeader {
   z-index: 2;
-  padding-top: 20px;
+  /* padding-top: 20px; */
 }
 .imgHeader:after {
   z-index: 2;
@@ -98,12 +99,34 @@ h2:after {
   font-size: 40px
 }
 .footer{
-
   background-color: #e3e7e7;
-    border-radius: 10px 10px 0px 0px;
-    height: 26px;
-    color: black;
+  color: black;
+  text-align: center;
+  font-size: 3px;
 }
+.footer::after{
+ content : "";
+ display: block;
+    border-bottom: 1px solid #4c4b48;
+    background-color: transparent;
+    margin-right: 75%;
+}
+.footer::before{
+  content : "";
+  display: block;
+     border-bottom: 1px solid #6b6a68;
+     background-color: transparent;
+     margin-left  : 75%;
+ }
 .accordion-button{
   border: none
+}
+.logos{
+  max-width : 40px
+}
+.image{
+  max-width: 50%;
+  /* border: solid 2px #c79534; */
+  margin: 22px;
+  
 }
