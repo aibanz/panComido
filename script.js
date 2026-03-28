@@ -169,7 +169,8 @@ function createDataCell(value, header) {
       whatsappIcon.className = 'bi bi-whatsapp';
       cell.textContent = "";
       cell.appendChild(whatsappIcon);
-      cell.setAttribute('href', "https://wa.me/" + value);
+      //cell.setAttribute('href', "https://wa.me/" + value);
+      cell.setAttribute('href',value);
       cell.className = "link";
       break;
     case "INSTAGRAM":
